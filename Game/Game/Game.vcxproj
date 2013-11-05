@@ -126,6 +126,26 @@
     <None Include="res\Game.rc2" />
   </ItemGroup>
   <ItemGroup>
+    <Image Include="..\..\..\..\Desktop\Images\00.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\01.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\02.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\03.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\04.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\05.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\06.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\07.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\08.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\09.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\10.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\11.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\12.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\13.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\14.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\15.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\16.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\17.BMP" />
+    <Image Include="..\..\..\..\Desktop\Images\18.BMP" />
+    <Image Include="res\bitmap1.bmp" />
     <Image Include="res\Game.ico" />
     <Image Include="res\GameDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
@@ -133,4 +153,9 @@
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
+  <ProjectExtensions>
+    <VisualStudio>
+      <UserProperties RESOURCE_FILE="Game.rc" />
+    </VisualStudio>
+  </ProjectExtensions>
 </Project>

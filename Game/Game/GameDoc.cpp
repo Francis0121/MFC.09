@@ -10,6 +10,8 @@
 #endif
 
 #include "GameDoc.h"
+#include "GameView.h"
+#include "MainFrm.h"
 
 #include <propkey.h>
 
@@ -30,7 +32,19 @@ END_MESSAGE_MAP()
 CGameDoc::CGameDoc()
 {
 	// TODO: 여기에 일회성 생성 코드를 추가합니다.
+	m_bmCell = CSize(79, 81);
+	m_nRow = 3;
+	m_nCol = 4;
 
+	m_bRandom = true;
+	for(int n = 0; n < m_nRow; n++){
+		for(int m = 0; m < m_nCol; m++){
+			m_bShow[n][m] = false;
+		}
+	}
+
+	m_nBmpFirstID = m_nBmpSecondID = 0;
+	m_bMouse = false;
 }
 
 CGameDoc::~CGameDoc()
@@ -135,3 +149,60 @@ void CGameDoc::Dump(CDumpContext& dc) const
 
 
 // CGameDoc 명령
+
+void CGameDoc::ResizeWindow(void)
+{
+	CMainFrame* pMain = (CMainFrame*)AfxGetMainWnd();
+
+	CREATESTRUCT st;
+	CREATESTRUCT& rst = st;
+
+	pMain->PreCreateWindow(rst);
+
+	rst.lpszName = _T("Game");
+	rst.cx = (m_nRow+1) * m_bmCell.cx + 180;
+	rst.cy = (m_nCol+1) * m_bmCell.cy + 100;
+
+	CRect rect;
+	pMain->GetClientRect(rect);
+	pMain->MoveWindow(rect.left, rect.top, rst.cx, rst.cy);
+}
+
+void CGameDoc::OnRandom(void){
+	//시간을 Seed로 잡아 똑같은 난수 발생을 방지
+	srand((unsigned)time(NULL));
+
+	//비트맵 삽입여부/ 격자의 총 수 / 처음 넣을 비트맵의 아이디
+	BOOL bInsert = TRUE;
+	//격자의 총수를 구한다.
+	int nGrating = m_nRow * m_nCol;
+
+	//격자의 수만큼 돌면서 난수 발생
+	for(int n=0; n < nGrating; n++){
+		//시작 비트맵 아이디에 난수를 더해 비트맵을 변경
+		//일단 발생한 난수를 배열에 저장하고 본다.
+		m_nRnd[n] = (rand()%(nGrating/2))+1;
+
+		//현재 진행한 격자수까지만 비교한다.
+		for(int m = 0; m<n; m++){
+			if(m_nRnd[n] == m_nRnd[m]){//만일 같은 값이 있다면 변수에 삽입 불가능한지를 알아본다.
+				if(bInsert == FALSE){//bInsert가 FALSE이면 세번쨰 동일한 값이므로 
+					n--;//배열에 이미 세번째 저장딘 랜덤값을 취소하기 위해서 첨자를 감소한다.
+					bInsert = TRUE;//세번이상은 절대 동일한 값이 저장되어 있지 않을 것이므로
+					break;//안쪽 반복문을 벗어난다. 
+				}
+				bInsert = FALSE;
+			}
+		}
+	}
+	
+	int nCount = 0;
+
+	for(int n = 0; n < m_nRow; n++){
+		for(int m = 0; m<m_nCol; m++){
+			m_nBmpID[n][m] = m_nRnd[nCount];
+			nCount++;
+		}
+	}
+
+}
