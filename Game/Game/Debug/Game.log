@@ -1,0 +1,26 @@
+﻿빌드 시작: 2013-11-05 오전 11:25:41
+     1>2 노드의 "C:\Users\Francis\git\MFC.09\Game\Game\Game.vcxproj" 프로젝트(Build 대상)입니다.
+     1>ClCompile:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yc"stdafx.h" /Fp"Debug\Game.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt stdafx.cpp
+         stdafx.cpp
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Game.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp GameDoc.cpp GameView.cpp MainFrm.cpp
+         MainFrm.cpp
+         GameView.cpp
+         GameDoc.cpp
+         Game.cpp
+         코드를 생성하고 있습니다...
+       ResourceCompile:
+         C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /l"0x0412" /IDebug\ /nologo /fo"Debug\Game.res" Game.rc 
+       Link:
+         C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\link.exe /ERRORREPORT:PROMPT /OUT:"C:\Users\Francis\git\MFC.09\Game\Debug\Game.exe" /INCREMENTAL /NOLOGO /MANIFEST /MANIFESTUAC:"level='asInvoker' uiAccess='false'" /manifest:embed /manifestinput:"C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\Include\Manifest\dpiaware.manifest" /DEBUG /PDB:"C:\Users\Francis\git\MFC.09\Game\Debug\Game.pdb" /SUBSYSTEM:WINDOWS /TLBID:1 /ENTRY:"wWinMainCRTStartup" /DYNAMICBASE /NXCOMPAT /IMPLIB:"C:\Users\Francis\git\MFC.09\Game\Debug\Game.lib" /MACHINE:X86 Debug\Game.res
+         Debug\Game.obj
+         Debug\GameDoc.obj
+         Debug\GameView.obj
+         Debug\MainFrm.obj
+         Debug\stdafx.obj
+         Game.vcxproj -> C:\Users\Francis\git\MFC.09\Game\Debug\Game.exe
+     1>"C:\Users\Francis\git\MFC.09\Game\Game\Game.vcxproj" 프로젝트를 빌드했습니다(Build 대상).
+
+빌드했습니다.
+
+경과 시간: 00:00:07.24
