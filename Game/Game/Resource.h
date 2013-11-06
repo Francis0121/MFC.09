@@ -25,14 +25,45 @@
 #define IDB_BITMAP17                    365
 #define IDB_BITMAP18                    366
 #define IDB_BITMAP19                    367
+#define IDB_BITMAP20                    388
+#define IDB_BITMAP21                    389
+#define IDB_BITMAP22                    390
+#define IDB_BITMAP23                    391
+#define IDB_BITMAP24                    392
+#define IDB_BITMAP25                    393
+#define IDB_BITMAP26                    394
+#define IDB_BITMAP27                    395
+#define IDB_BITMAP28                    396
+#define IDB_BITMAP29                    397
+#define IDB_BITMAP30                    398
+#define IDB_BITMAP31                    399
+#define IDB_BITMAP32                    400
+#define IDB_BITMAP33                    401
+#define IDB_BITMAP34                    402
+#define IDB_BITMAP35                    403
+#define IDB_BITMAP36                    404
+#define IDB_BITMAP37                    405
+#define IDB_BITMAP38                    406
+#define IDD_WELCOME                     407
+#define IDC_RADIO_GRADE_                1000
+#define IDC_RADIO_GRADE_TOP             1000
+#define IDC_RADIO_GRADE_MIDDLE          1001
+#define IDC_RADIO_GRADE_LOW             1002
+#define IDC_STATIC_WELCOME              1003
+#define ID_32771                        32771
+#define ID_32772                        32772
+#define ID_32773                        32773
+#define ID_GRADE_TOP                    32774
+#define ID_GRADE_MIDDEL                 32775
+#define ID_GRADE_LOW                    32776
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        368
-#define _APS_NEXT_COMMAND_VALUE         32771
-#define _APS_NEXT_CONTROL_VALUE         1000
+#define _APS_NEXT_RESOURCE_VALUE        408
+#define _APS_NEXT_COMMAND_VALUE         32777
+#define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

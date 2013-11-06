@@ -78,25 +78,25 @@ IDR_GameTYPE            ICON                    "res\\GameDoc.ico"
 //
 
 IDR_MAINFRAME           BITMAP                  "res\\Toolbar.bmp"
-IDB_BITMAP1             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\00.BMP"
-IDB_BITMAP2             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\01.BMP"
-IDB_BITMAP3             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\02.BMP"
-IDB_BITMAP4             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\03.BMP"
-IDB_BITMAP5             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\04.BMP"
-IDB_BITMAP6             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\05.BMP"
-IDB_BITMAP7             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\06.BMP"
-IDB_BITMAP8             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\07.BMP"
-IDB_BITMAP9             BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\08.BMP"
-IDB_BITMAP10            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\09.BMP"
-IDB_BITMAP11            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\10.BMP"
-IDB_BITMAP12            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\11.BMP"
-IDB_BITMAP13            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\12.BMP"
-IDB_BITMAP14            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\13.BMP"
-IDB_BITMAP15            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\14.BMP"
-IDB_BITMAP16            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\15.BMP"
-IDB_BITMAP17            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\16.BMP"
-IDB_BITMAP18            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\17.BMP"
-IDB_BITMAP19            BITMAP                  "C:\\Users\\Francis\\Desktop\\Images\\18.BMP"
+IDB_BITMAP20            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\00.BMP"
+IDB_BITMAP21            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\01.BMP"
+IDB_BITMAP22            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\02.BMP"
+IDB_BITMAP23            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\03.BMP"
+IDB_BITMAP24            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\04.BMP"
+IDB_BITMAP25            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\05.BMP"
+IDB_BITMAP26            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\06.BMP"
+IDB_BITMAP27            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\07.BMP"
+IDB_BITMAP28            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\08.BMP"
+IDB_BITMAP29            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\09.BMP"
+IDB_BITMAP30            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\10.BMP"
+IDB_BITMAP31            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\11.BMP"
+IDB_BITMAP32            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\12.BMP"
+IDB_BITMAP33            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\13.BMP"
+IDB_BITMAP34            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\14.BMP"
+IDB_BITMAP35            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\15.BMP"
+IDB_BITMAP36            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\16.BMP"
+IDB_BITMAP37            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\17.BMP"
+IDB_BITMAP38            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\18.BMP"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -140,18 +140,16 @@ BEGIN
         MENUITEM SEPARATOR
         MENUITEM "끝내기(&X)",                     ID_APP_EXIT
     END
-    POPUP "편집(&E)"
-    BEGIN
-        MENUITEM "실행 취소(&U)\tCtrl+Z",           ID_EDIT_UNDO
-        MENUITEM SEPARATOR
-        MENUITEM "잘라내기(&T)\tCtrl+X",            ID_EDIT_CUT
-        MENUITEM "복사(&C)\tCtrl+C",              ID_EDIT_COPY
-        MENUITEM "붙여넣기(&P)\tCtrl+V",            ID_EDIT_PASTE
-    END
     POPUP "보기(&V)"
     BEGIN
         MENUITEM "도구 모음(&T)",                   ID_VIEW_TOOLBAR
         MENUITEM "상태 표시줄(&S)",                  ID_VIEW_STATUS_BAR
+    END
+    POPUP "난이도"
+    BEGIN
+        MENUITEM "상",                           ID_GRADE_TOP
+        MENUITEM "중",                           ID_GRADE_MIDDEL
+        MENUITEM "하",                           ID_GRADE_LOW
     END
     POPUP "도움말(&H)"
     BEGIN
@@ -198,6 +196,19 @@ BEGIN
     LTEXT           "Game, 버전 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) 2013",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "확인",IDOK,113,41,50,14,WS_GROUP
+END
+
+IDD_WELCOME DIALOGEX 0, 0, 229, 114
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Welcome"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    DEFPUSHBUTTON   "확인",IDOK,168,91,50,14
+    LTEXT           "같은그림찾기 게임에 오신걸 환영합니다.",IDC_STATIC_WELCOME,17,23,146,8
+    CONTROL         "상",IDC_RADIO_GRADE_TOP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,31,60,24,10
+    CONTROL         "중",IDC_RADIO_GRADE_MIDDLE,"Button",BS_AUTORADIOBUTTON,94,60,24,10
+    CONTROL         "하",IDC_RADIO_GRADE_LOW,"Button",BS_AUTORADIOBUTTON,157,60,24,10
+    GROUPBOX        "난이도",IDC_STATIC,15,42,201,40
 END
 
 
@@ -254,6 +265,14 @@ BEGIN
         RIGHTMARGIN, 163
         TOPMARGIN, 7
         BOTTOMMARGIN, 55
+    END
+
+    IDD_WELCOME, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 222
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 107
     END
 END
 #endif    // APSTUDIO_INVOKED

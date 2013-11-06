@@ -19,10 +19,15 @@ public:
 	UINT m_nColTempIndex;
 	//맞춘 그림의 개수를 세는 변수 선언
 	int nMatchCount;
+
 // 작업입니다.
 public:
 	void OnMatching(void);
 	void OnSuccess(void);
+	
+	void OnTimerStart(void);
+	void OnTimerStop(void);
+	void OnTimerReset(void);
 // 재정의입니다.
 public:
 	virtual void OnDraw(CDC* pDC);  // 이 뷰를 그리기 위해 재정의되었습니다.
@@ -47,6 +52,14 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	afx_msg void OnLButtonDown(UINT nFlags, CPoint point);
+	afx_msg int OnCreate(LPCREATESTRUCT lpCreateStruct);
+	afx_msg void OnGradeTop();
+	afx_msg void OnGradeMiddel();
+	afx_msg void OnGradeLow();
+	afx_msg void OnUpdateGradeTop(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateGradeMiddel(CCmdUI *pCmdUI);
+	afx_msg void OnUpdateGradeLow(CCmdUI *pCmdUI);
+	afx_msg void OnTimer(UINT_PTR nIDEvent);
 };
 
 #ifndef _DEBUG  // GameView.cpp의 디버그 버전

@@ -108,6 +108,7 @@
     <ClInclude Include="Resource.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
+    <ClInclude Include="WelcomeDlg.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp" />
@@ -118,6 +119,7 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Create</PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="WelcomeDlg.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc" />
@@ -126,26 +128,27 @@
     <None Include="res\Game.rc2" />
   </ItemGroup>
   <ItemGroup>
-    <Image Include="..\..\..\..\Desktop\Images\00.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\01.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\02.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\03.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\04.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\05.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\06.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\07.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\08.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\09.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\10.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\11.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\12.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\13.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\14.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\15.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\16.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\17.BMP" />
-    <Image Include="..\..\..\..\Desktop\Images\18.BMP" />
+    <Image Include="..\..\Image\00.BMP" />
+    <Image Include="..\..\Image\01.BMP" />
+    <Image Include="..\..\Image\02.BMP" />
+    <Image Include="..\..\Image\03.BMP" />
+    <Image Include="..\..\Image\04.BMP" />
+    <Image Include="..\..\Image\05.BMP" />
+    <Image Include="..\..\Image\06.BMP" />
+    <Image Include="..\..\Image\07.BMP" />
+    <Image Include="..\..\Image\08.BMP" />
+    <Image Include="..\..\Image\09.BMP" />
+    <Image Include="..\..\Image\10.BMP" />
+    <Image Include="..\..\Image\11.BMP" />
+    <Image Include="..\..\Image\12.BMP" />
+    <Image Include="..\..\Image\13.BMP" />
+    <Image Include="..\..\Image\14.BMP" />
+    <Image Include="..\..\Image\15.BMP" />
+    <Image Include="..\..\Image\16.BMP" />
+    <Image Include="..\..\Image\17.BMP" />
+    <Image Include="..\..\Image\18.BMP" />
     <Image Include="res\bitmap1.bmp" />
+    <Image Include="res\bitmap20.bmp" />
     <Image Include="res\Game.ico" />
     <Image Include="res\GameDoc.ico" />
     <Image Include="res\Toolbar.bmp" />
