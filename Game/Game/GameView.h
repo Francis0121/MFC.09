@@ -24,7 +24,7 @@ public:
 public:
 	void OnMatching(void);
 	void OnSuccess(void);
-	
+
 	void OnTimerStart(void);
 	void OnTimerStop(void);
 	void OnTimerReset(void);

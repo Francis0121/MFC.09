@@ -20,4 +20,5 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	int m_nGrade;
+	CString m_strName;
 };

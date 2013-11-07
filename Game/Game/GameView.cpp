@@ -118,6 +118,11 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		}
 		//memDC.SelectObject(pOldBmp);
 		pDoc->ResizeWindow();
+
+		pDC->TextOutW(100, 10, pDoc->GetName());
+		
+		CString str = pDoc->OnReadScoreFile();
+		pDC->TextOutW(300, 10, str);
 	}
 
 
@@ -261,6 +266,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		CString str;
 		str.Format(_T("걸린시간은 %d:%d:%d:%d입니다.\n게임오버! 다시 시작하시겠습니까?"), 
 			pDoc->GetHour(), pDoc->GetMinute(), pDoc->GetSecond(), pDoc->GetTimeset());
+		pDoc->OnWriteScoreFile();
 
 		int res = AfxMessageBox(str, MB_YESNO);
 		if(res == IDYES){
@@ -271,6 +277,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 			OnTimerStart();
 		}
 	}
+
 
 	void CGameView::OnTimerStart(void){
 		SetTimer(100, 100, NULL);
@@ -306,7 +313,8 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 			pDoc->SetGrade(LOW); // 확인을 누르지 않는다면 무조건 LOW
 			OnTimerStart();
 		}
-		return 0;
+
+		pDoc->SetName(dlg.m_strName);
 	}
 
 	void CGameView::OnTimer(UINT_PTR nIDEvent){

@@ -38,8 +38,9 @@ public:
 	bool m_bMouse; //true이면 첫번째 마우스 버튼이 눌린 것이고 false이면 두번쨰 마우스 버튼이 눌린 것임
 
 	int m_nGrade; //난이도 변수
-
 	int m_nH, m_nM, m_nS, m_nTimeSet; // 시간
+
+	CString m_strName;
 
 // 작업입니다.
 public:
@@ -47,14 +48,21 @@ public:
 	void OnRandom(void);
 	void UpdateGrade(void);
 	void InitializeGame(void);
+	
+	CString OnReadScoreFile(void);
+	void OnWriteScoreFile(void);
 
-	//Getter,Setter
+	//Getter,Setter	
+	bool GetRandom();
+	void SetRandom(bool random);
+
+	//Dlg Variable
 	void SetGrade(int grade);
 	int GetGrade();
-	void SetRandom(bool random);
-	bool GetRandom();
-	double GetRecordPerSecond();
+	CString GetName(void);
+	void SetName(CString name);
 
+	//Time Getter, Setter
 	int GetHour(void);
 	void SetHour(int hour);
 	int GetMinute(void);
@@ -91,4 +99,5 @@ protected:
 	// 검색 처리기에 대한 검색 콘텐츠를 설정하는 도우미 함수
 	void SetSearchContent(const CString& value);
 #endif // SHARED_HANDLERS
+
 };

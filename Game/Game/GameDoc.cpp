@@ -29,7 +29,8 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 
 	// CGameDoc »ý¼º/¼Ò¸ê
 
-	CGameDoc::CGameDoc(){
+	CGameDoc::CGameDoc() : m_strName(_T(""))
+	{
 		m_bmCell = CSize(79, 81);
 		m_nRow = 5;
 		m_nCol = 6;
@@ -174,7 +175,7 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 			for(int m=0; m<m_nCol; m++)
 				m_bShow[n][m] = false;	
 
-		m_nBmpFirstID = m_nBmpSecondID =0;
+		m_nBmpFirstID = m_nBmpSecondID = 0;
 		m_bMouse = false;
 		
 		m_nH = m_nM = m_nS = m_nTimeSet = 0;
@@ -237,6 +238,49 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 		}
 	}
 
+
+	CString CGameDoc::OnReadScoreFile(void){
+		CFile file;
+		CFileException e;
+
+		if(!file.Open(_T("score"), CFile::modeRead | CFile::shareDenyNone, &e)){
+			e.ReportError();
+			return NULL;
+		}
+
+		CArchive ar(&file, CArchive::load);
+
+		ar.Close();
+		file.Close();
+
+		return NULL;
+	}
+	
+	void CGameDoc::OnWriteScoreFile(void){
+
+		CFile file; 
+		CFileException e;
+		// Open file as create & write mode 
+		if(!(file.Open(_T("score"), CFile::modeCreate | CFile::modeReadWrite | CFile::shareDenyNone, &e))) { 
+			e.ReportError();
+			return; 
+		} 
+		file.SeekToEnd();
+		CArchive ar(&file, CArchive::store);	// Open file to write 
+		
+		CString time;
+		time.Format(_T("%d:%d:%d:%d"), m_nH, m_nM, m_nS, m_nTimeSet);
+		DWORD wd = 0xfeff;
+		ar.Write(&wd, sizeof(DWORD));
+		ar.WriteString(m_strName);
+		ar.WriteString(_T("\t"));
+		ar.WriteString(time);
+		ar.WriteString(_T("\n"));
+
+		ar.Close();
+		file.Close(); 
+	}
+
 	// ~ Getter Setter
 	int CGameDoc::GetGrade(){
 		return m_nGrade;
@@ -244,6 +288,14 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 
 	void CGameDoc::SetGrade(int grade){
 		m_nGrade = grade;
+	}
+	
+	CString CGameDoc::GetName(void){
+		return m_strName;
+	}
+	
+	void CGameDoc::SetName(CString name){
+		m_strName = name;
 	}
 
 	bool CGameDoc::GetRandom(){
@@ -257,24 +309,31 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 	int CGameDoc::GetHour(void){
 		return m_nH;
 	}
+	
 	void CGameDoc::SetHour(int hour){
 		m_nH = hour;
 	}
+	
 	int CGameDoc::GetMinute(void){
 		return m_nM;
 	}
+	
 	void CGameDoc::SetMinute(int minute){
 		m_nM = minute;
 	}
+	
 	int CGameDoc::GetSecond(void){
 		return m_nS;
 	}
+	
 	void CGameDoc::SetSecond(int second){
 		m_nS = second;
 	}
+	
 	int CGameDoc::GetTimeset(void){
 		return m_nTimeSet;
 	}
+
 	void CGameDoc::SetTimeset(int timeset){
 		m_nTimeSet = timeset;
 	}
