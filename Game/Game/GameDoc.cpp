@@ -194,9 +194,15 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 		rst.cx = (m_nRow+1) * m_bmCell.cx + 180;
 		rst.cy = (m_nCol+1) * m_bmCell.cy + 100;
 
-		CRect rect;
-		pMain->GetClientRect(rect);
-		pMain->MoveWindow(rect.left+200, rect.top+100, rst.cx, rst.cy);
+		RECT rcTemp ;
+        LONG x, y;
+
+        GetWindowRect(GetDesktopWindow(), &rcTemp) ;
+   
+        x = LONG((rcTemp.right - rst.cx) / 2) ;
+		y = LONG((rcTemp.bottom - rst.cy) / 2) ;
+
+		pMain->MoveWindow(x, y, rst.cx, rst.cy);
 	}
 
 	void CGameDoc::OnRandom(void){

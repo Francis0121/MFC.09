@@ -259,7 +259,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		OnTimerStop();
 		CGameDoc* pDoc = GetDocument();
 		CString str;
-		str.Format(_T("걸린시간은 %d:%d:%d:%d입니다\n게임오버! 다시 시작하시겠습니까?"), 
+		str.Format(_T("걸린시간은 %d:%d:%d:%d입니다.\n게임오버! 다시 시작하시겠습니까?"), 
 			pDoc->GetHour(), pDoc->GetMinute(), pDoc->GetSecond(), pDoc->GetTimeset());
 
 		int res = AfxMessageBox(str, MB_YESNO);

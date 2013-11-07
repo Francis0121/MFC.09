@@ -97,6 +97,7 @@ IDB_BITMAP35            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09
 IDB_BITMAP36            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\16.BMP"
 IDB_BITMAP37            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\17.BMP"
 IDB_BITMAP38            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\18.BMP"
+IDB_BITMAP39            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\Loading.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -211,6 +212,13 @@ BEGIN
     GROUPBOX        "≥≠¿Ãµµ",IDC_STATIC,15,42,201,40
 END
 
+IDD_DIALOG_LOADING DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    CONTROL         409,IDC_STATIC,"Static",SS_BITMAP,0,0,15,13
+END
+
 
 /////////////////////////////////////////////////////////////////////////////
 //
@@ -273,6 +281,14 @@ BEGIN
         RIGHTMARGIN, 222
         TOPMARGIN, 7
         BOTTOMMARGIN, 107
+    END
+
+    IDD_DIALOG_LOADING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 302
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 170
     END
 END
 #endif    // APSTUDIO_INVOKED

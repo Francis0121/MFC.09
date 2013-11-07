@@ -45,7 +45,8 @@
 #define IDB_BITMAP37                    405
 #define IDB_BITMAP38                    406
 #define IDD_WELCOME                     407
-#define IDC_RADIO_GRADE_                1000
+#define IDB_BITMAP39                    409
+#define IDD_DIALOG_LOADING              410
 #define IDC_RADIO_GRADE_TOP             1000
 #define IDC_RADIO_GRADE_MIDDLE          1001
 #define IDC_RADIO_GRADE_LOW             1002
@@ -61,7 +62,7 @@
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        408
+#define _APS_NEXT_RESOURCE_VALUE        411
 #define _APS_NEXT_COMMAND_VALUE         32777
 #define _APS_NEXT_CONTROL_VALUE         1004
 #define _APS_NEXT_SYMED_VALUE           310
