@@ -22,6 +22,7 @@ CWelcomeDlg::CWelcomeDlg(CWnd* pParent /*=NULL*/)
 		WTS_CURRENT_SERVER_HANDLE, WTS_CURRENT_SESSION, 
 		WTSUserName, &pStr, &dwCnt);
 	m_nGrade = 0;
+	m_nMode = 0;
 	m_strName = pStr;
 }
 
@@ -34,8 +35,30 @@ void CWelcomeDlg::DoDataExchange(CDataExchange* pDX)
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Radio(pDX, IDC_RADIO_GRADE_TOP, m_nGrade);
 	DDX_Text(pDX, IDC_EDIT_USERNAME, m_strName);
+	DDX_Control(pDX, IDC_RADIO_GRADE_TOP, m_ctrRadioTop);
+	DDX_Control(pDX, IDC_RADIO_GRADE_MIDDLE, m_ctrRadioMiddle);
+	DDX_Control(pDX, IDC_RADIO_GRADE_LOW, m_ctrRadioLow);
+	DDX_Radio(pDX, IDC_RADIO_MODE_PRACTICE, m_nMode);
 }
 
 
 BEGIN_MESSAGE_MAP(CWelcomeDlg, CDialogEx)
+	ON_BN_CLICKED(IDC_RADIO_MODE_RANK, &CWelcomeDlg::OnBnClickedRadioModeRank)
+	ON_BN_CLICKED(IDC_RADIO_MODE_PRACTICE, &CWelcomeDlg::OnBnClickedRadioModePractice)
 END_MESSAGE_MAP()
+
+
+void CWelcomeDlg::OnBnClickedRadioModeRank()
+{
+	m_ctrRadioTop.EnableWindow(FALSE);
+	m_ctrRadioMiddle.EnableWindow(FALSE);
+	m_ctrRadioLow.EnableWindow(FALSE);
+}
+
+
+void CWelcomeDlg::OnBnClickedRadioModePractice()
+{
+	m_ctrRadioTop.EnableWindow(TRUE);
+	m_ctrRadioMiddle.EnableWindow(TRUE);
+	m_ctrRadioLow.EnableWindow(TRUE);
+}

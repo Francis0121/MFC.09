@@ -25,9 +25,8 @@ public:
 	//맞춘 그림의 개수를 세는 변수 선언
 	int nMatchCount;
 	int isStatus;
+	// Game Intro 관련 변수
 	clock_t before;
-
-	// 옮길 변수
 	CString m_strIntro;
 
 // 작업입니다.
@@ -74,6 +73,15 @@ public:
 	afx_msg void OnUpdateGradeLow(CCmdUI *pCmdUI);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
 	afx_msg void OnNewGame();
+	afx_msg void OnModeRanking();
+	afx_msg void OnUpdateModeRanking(CCmdUI *pCmdUI);
+	afx_msg void OnStaticsRanking();
+	afx_msg void OnTypeDooly();
+	afx_msg void OnUpdateTypeDooly(CCmdUI *pCmdUI);
+	afx_msg void OnTypePocketmon();
+	afx_msg void OnUpdateTypePocketmon(CCmdUI *pCmdUI);
+	afx_msg void OnTypeOnepiece();
+	afx_msg void OnUpdateTypeOnepiece(CCmdUI *pCmdUI);
 };
 
 #ifndef _DEBUG  // GameView.cpp의 디버그 버전

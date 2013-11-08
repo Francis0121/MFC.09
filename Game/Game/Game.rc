@@ -74,32 +74,6 @@ IDR_GameTYPE            ICON                    "res\\GameDoc.ico"
 
 /////////////////////////////////////////////////////////////////////////////
 //
-// Bitmap
-//
-
-IDB_BITMAP20            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\00.BMP"
-IDB_BITMAP21            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\01.BMP"
-IDB_BITMAP22            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\02.BMP"
-IDB_BITMAP23            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\03.BMP"
-IDB_BITMAP24            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\04.BMP"
-IDB_BITMAP25            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\05.BMP"
-IDB_BITMAP26            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\06.BMP"
-IDB_BITMAP27            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\07.BMP"
-IDB_BITMAP28            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\08.BMP"
-IDB_BITMAP29            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\09.BMP"
-IDB_BITMAP30            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\10.BMP"
-IDB_BITMAP31            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\11.BMP"
-IDB_BITMAP32            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\12.BMP"
-IDB_BITMAP33            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\13.BMP"
-IDB_BITMAP34            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\14.BMP"
-IDB_BITMAP35            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\15.BMP"
-IDB_BITMAP36            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\16.BMP"
-IDB_BITMAP37            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\17.BMP"
-IDB_BITMAP38            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\18.BMP"
-IDB_BITMAP39            BITMAP                  "C:\\Users\\Francis\\git\\MFC.09\\Image\\Loading.bmp"
-
-/////////////////////////////////////////////////////////////////////////////
-//
 // Menu
 //
 
@@ -108,20 +82,24 @@ BEGIN
     POPUP "게임(&G)"
     BEGIN
         MENUITEM "새 게임(&N)\tF2",                ID_NEW_GAME
-        POPUP "난이도(&G)"
+        POPUP "게임 모드"
         BEGIN
-            MENUITEM "고급(&T)",                      ID_GRADE_TOP
-            MENUITEM "중급(&M)",                      ID_GRADE_MIDDEL
-            MENUITEM "하급(&L)",                      ID_GRADE_LOW
+            MENUITEM "랭킹모드(&R)\tF3",                ID_MODE_RANKING
+            POPUP "연습모드(&P)"
+            BEGIN
+                MENUITEM "고급(&T)",                      ID_GRADE_TOP
+                MENUITEM "중급(&M)",                      ID_GRADE_MIDDEL
+                MENUITEM "하급(&L)",                      ID_GRADE_LOW
+            END
         END
         POPUP "모양변경"
         BEGIN
-            MENUITEM "둘리",                          ID_32779
-            MENUITEM "포켓몬스터",                       ID_32780
-            MENUITEM "원피스",                         ID_32781
-            MENUITEM "랜덤",                          ID_32782
+            MENUITEM "둘리",                          ID_TYPE_DOOLY
+            MENUITEM "포켓몬스터",                       ID_TYPE_POCKETMON
+            MENUITEM "원피스",                         ID_TYPE_ONEPIECE
         END
         MENUITEM SEPARATOR
+        MENUITEM "랭킹(&S)\tF4",                  ID_STATICS_RANKING
         MENUITEM "끝내기(&X)",                     ID_APP_EXIT
     END
     POPUP "도움말(&H)"
@@ -147,9 +125,11 @@ BEGIN
     VK_INSERT,      ID_EDIT_PASTE,          VIRTKEY, SHIFT, NOINVERT
     VK_BACK,        ID_EDIT_UNDO,           VIRTKEY, ALT, NOINVERT
     "Z",            ID_EDIT_UNDO,           VIRTKEY, CONTROL, NOINVERT
+    VK_F2,          ID_NEW_GAME,            VIRTKEY, NOINVERT
     VK_F6,          ID_NEXT_PANE,           VIRTKEY, NOINVERT
     VK_F6,          ID_PREV_PANE,           VIRTKEY, SHIFT, NOINVERT
-    VK_F2,          ID_NEW_GAME,            VIRTKEY, NOINVERT
+    VK_F3,          ID_MODE_RANKING,        VIRTKEY, NOINVERT
+    VK_F4,          ID_STATICS_RANKING,     VIRTKEY, NOINVERT
 END
 
 
@@ -169,26 +149,37 @@ BEGIN
     DEFPUSHBUTTON   "확인",IDOK,113,41,50,14,WS_GROUP
 END
 
-IDD_WELCOME DIALOGEX 0, 0, 229, 118
+IDD_WELCOME DIALOGEX 0, 0, 239, 165
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
 CAPTION "Welcome"
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    DEFPUSHBUTTON   "확인",IDOK,168,94,50,14
-    LTEXT           "같은그림찾기 게임에 오신걸 환영합니다.",IDC_STATIC_WELCOME,19,16,146,8
-    CONTROL         "고급",IDC_RADIO_GRADE_TOP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,31,68,32,10
-    CONTROL         "중급",IDC_RADIO_GRADE_MIDDLE,"Button",BS_AUTORADIOBUTTON,94,68,32,10
-    CONTROL         "초급",IDC_RADIO_GRADE_LOW,"Button",BS_AUTORADIOBUTTON,157,68,32,10
-    GROUPBOX        "난이도",IDC_STATIC,15,51,201,36
-    LTEXT           "사용자명 : ",IDC_STATIC,20,34,40,8
-    EDITTEXT        IDC_EDIT_USERNAME,60,32,70,14,ES_AUTOHSCROLL
+    EDITTEXT        IDC_EDIT_USERNAME,64,35,70,14,ES_AUTOHSCROLL
+    CONTROL         "연습모드",IDC_RADIO_MODE_PRACTICE,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,71,48,10
+    CONTROL         "랭킹모드",IDC_RADIO_MODE_RANK,"Button",BS_AUTORADIOBUTTON,98,71,48,10
+    CONTROL         "고급",IDC_RADIO_GRADE_TOP,"Button",BS_AUTORADIOBUTTON | WS_GROUP,35,110,32,10
+    CONTROL         "중급",IDC_RADIO_GRADE_MIDDLE,"Button",BS_AUTORADIOBUTTON,98,110,32,10
+    CONTROL         "초급",IDC_RADIO_GRADE_LOW,"Button",BS_AUTORADIOBUTTON,161,110,32,10
+    DEFPUSHBUTTON   "확인",IDOK,172,136,50,14
+    LTEXT           "같은그림찾기 게임에 오신걸 환영합니다.",IDC_STATIC_WELCOME,24,18,146,8
+    GROUPBOX        "난이도",IDC_STATIC,19,93,201,36
+    LTEXT           "사용자명 : ",IDC_STATIC,24,37,40,8
+    GROUPBOX        "게임모드",IDC_STATIC,19,54,201,36
 END
 
-IDD_DIALOG_LOADING DIALOGEX 0, 0, 309, 177
+IDD_DIALOG_LOADING DIALOGEX 0, 0, 320, 197
 STYLE DS_SETFONT | DS_FIXEDSYS | WS_POPUP | WS_SYSMENU
 FONT 8, "MS Shell Dlg", 400, 0, 0x1
 BEGIN
-    CONTROL         409,IDC_STATIC,"Static",SS_BITMAP,0,0,15,13
+    CONTROL         456,IDC_STATIC,"Static",SS_BITMAP,0,0,320,197
+END
+
+IDD_DIALOG_STATIC DIALOGEX 0, 0, 309, 177
+STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Ranking"
+FONT 8, "MS Shell Dlg", 400, 0, 0x1
+BEGIN
+    LTEXT           "",IDC_STATIC_RANKIN_LIST,31,22,241,129
 END
 
 
@@ -250,12 +241,20 @@ BEGIN
     IDD_WELCOME, DIALOG
     BEGIN
         LEFTMARGIN, 7
-        RIGHTMARGIN, 222
+        RIGHTMARGIN, 232
         TOPMARGIN, 7
-        BOTTOMMARGIN, 111
+        BOTTOMMARGIN, 158
     END
 
     IDD_DIALOG_LOADING, DIALOG
+    BEGIN
+        LEFTMARGIN, 7
+        RIGHTMARGIN, 313
+        TOPMARGIN, 7
+        BOTTOMMARGIN, 190
+    END
+
+    IDD_DIALOG_STATIC, DIALOG
     BEGIN
         LEFTMARGIN, 7
         RIGHTMARGIN, 302
@@ -265,6 +264,70 @@ BEGIN
 END
 #endif    // APSTUDIO_INVOKED
 
+
+/////////////////////////////////////////////////////////////////////////////
+//
+// Bitmap
+//
+
+IDB_BITMAP1             BITMAP                  "res\\00.bmp"
+IDB_BITMAP2             BITMAP                  "res\\01.bmp"
+IDB_BITMAP3             BITMAP                  "res\\02.bmp"
+IDB_BITMAP4             BITMAP                  "res\\03.bmp"
+IDB_BITMAP5             BITMAP                  "res\\04.bmp"
+IDB_BITMAP6             BITMAP                  "res\\05.bmp"
+IDB_BITMAP7             BITMAP                  "res\\06.bmp"
+IDB_BITMAP8             BITMAP                  "res\\07.bmp"
+IDB_BITMAP9             BITMAP                  "res\\08.bmp"
+IDB_BITMAP10            BITMAP                  "res\\09.bmp"
+IDB_BITMAP11            BITMAP                  "res\\10.bmp"
+IDB_BITMAP12            BITMAP                  "res\\11.bmp"
+IDB_BITMAP13            BITMAP                  "res\\12.bmp"
+IDB_BITMAP14            BITMAP                  "res\\13.bmp"
+IDB_BITMAP15            BITMAP                  "res\\14.bmp"
+IDB_BITMAP16            BITMAP                  "res\\15.bmp"
+IDB_BITMAP17            BITMAP                  "res\\16.bmp"
+IDB_BITMAP18            BITMAP                  "res\\17.bmp"
+IDB_BITMAP19            BITMAP                  "res\\18.bmp"
+IDB_BITMAP20            BITMAP                  "res\\Loading.bmp"
+IDB_BITMAP21            BITMAP                  "res\\PocketMon_00.bmp"
+IDB_BITMAP22            BITMAP                  "res\\PocketMon_01.bmp"
+IDB_BITMAP23            BITMAP                  "res\\PocketMon_02.bmp"
+IDB_BITMAP24            BITMAP                  "res\\PocketMon_03.bmp"
+IDB_BITMAP25            BITMAP                  "res\\PocketMon_04.bmp"
+IDB_BITMAP26            BITMAP                  "res\\PocketMon_05.bmp"
+IDB_BITMAP27            BITMAP                  "res\\PocketMon_06.bmp"
+IDB_BITMAP28            BITMAP                  "res\\PocketMon_07.bmp"
+IDB_BITMAP29            BITMAP                  "res\\PocketMon_08.bmp"
+IDB_BITMAP30            BITMAP                  "res\\PocketMon_09.bmp"
+IDB_BITMAP31            BITMAP                  "res\\PocketMon_10.bmp"
+IDB_BITMAP32            BITMAP                  "res\\PocketMon_11.bmp"
+IDB_BITMAP33            BITMAP                  "res\\PocketMon_12.bmp"
+IDB_BITMAP34            BITMAP                  "res\\PocketMon_13.bmp"
+IDB_BITMAP35            BITMAP                  "res\\PocketMon_14.bmp"
+IDB_BITMAP36            BITMAP                  "res\\PocketMon_15.bmp"
+IDB_BITMAP37            BITMAP                  "res\\PocketMon_16.bmp"
+IDB_BITMAP38            BITMAP                  "res\\PocketMon_17.bmp"
+IDB_BITMAP39            BITMAP                  "res\\PocketMon_18.bmp"
+IDB_BITMAP40            BITMAP                  "res\\OnePiece00.bmp"
+IDB_BITMAP41            BITMAP                  "res\\OnePiece01.bmp"
+IDB_BITMAP42            BITMAP                  "res\\OnePiece02.bmp"
+IDB_BITMAP43            BITMAP                  "res\\OnePiece03.bmp"
+IDB_BITMAP44            BITMAP                  "res\\OnePiece04.bmp"
+IDB_BITMAP45            BITMAP                  "res\\OnePiece05.bmp"
+IDB_BITMAP46            BITMAP                  "res\\OnePiece06.bmp"
+IDB_BITMAP47            BITMAP                  "res\\OnePiece07.bmp"
+IDB_BITMAP48            BITMAP                  "res\\OnePiece08.bmp"
+IDB_BITMAP49            BITMAP                  "res\\OnePiece09.bmp"
+IDB_BITMAP50            BITMAP                  "res\\OnePiece10.bmp"
+IDB_BITMAP51            BITMAP                  "res\\OnePiece11.bmp"
+IDB_BITMAP52            BITMAP                  "res\\OnePiece12.bmp"
+IDB_BITMAP53            BITMAP                  "res\\OnePiece13.bmp"
+IDB_BITMAP54            BITMAP                  "res\\OnePiece14.bmp"
+IDB_BITMAP55            BITMAP                  "res\\OnePiece15.bmp"
+IDB_BITMAP56            BITMAP                  "res\\OnePiece16.bmp"
+IDB_BITMAP57            BITMAP                  "res\\OnePiece17.bmp"
+IDB_BITMAP58            BITMAP                  "res\\OnePiece18.bmp"
 
 /////////////////////////////////////////////////////////////////////////////
 //

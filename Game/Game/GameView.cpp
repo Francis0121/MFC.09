@@ -18,7 +18,7 @@
 
 // Dialog
 #include "WelcomeDlg.h"
-
+#include "StaticDlg.h"
 
 // CGameView
 
@@ -39,6 +39,15 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		ON_UPDATE_COMMAND_UI(ID_GRADE_LOW, &CGameView::OnUpdateGradeLow)
 		ON_WM_TIMER()
 		ON_COMMAND(ID_NEW_GAME, &CGameView::OnNewGame)
+		ON_COMMAND(ID_MODE_RANKING, &CGameView::OnModeRanking)
+		ON_UPDATE_COMMAND_UI(ID_MODE_RANKING, &CGameView::OnUpdateModeRanking)
+		ON_COMMAND(ID_STATICS_RANKING, &CGameView::OnStaticsRanking)
+		ON_COMMAND(ID_TYPE_DOOLY, &CGameView::OnTypeDooly)
+		ON_UPDATE_COMMAND_UI(ID_TYPE_DOOLY, &CGameView::OnUpdateTypeDooly)
+		ON_COMMAND(ID_TYPE_POCKETMON, &CGameView::OnTypePocketmon)
+		ON_UPDATE_COMMAND_UI(ID_TYPE_POCKETMON, &CGameView::OnUpdateTypePocketmon)
+		ON_COMMAND(ID_TYPE_ONEPIECE, &CGameView::OnTypeOnepiece)
+		ON_UPDATE_COMMAND_UI(ID_TYPE_ONEPIECE, &CGameView::OnUpdateTypeOnepiece)
 	END_MESSAGE_MAP()
 
 	// CGameView 생성/소멸
@@ -93,8 +102,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 			for(int m = 0; m < pDoc->m_nCol ; m++){
 
 				if(pDoc->m_bShow[n][m] == true || isStatus == READY){
-
-					pDoc->m_bmp[n][m].LoadBitmap(IDB_BITMAP20 + pDoc->m_nRnd[nCount]);
+					pDoc->m_bmp[n][m].LoadBitmap(pDoc->GetType() + pDoc->m_nRnd[nCount]);
 					pOldBmp = memDC.SelectObject(&pDoc->m_bmp[n][m]);
 
 					pDC->BitBlt(
@@ -109,7 +117,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 				if(pDoc->m_bShow[n][m] == false && isStatus != READY){
 					CBitmap bmp;
-					bmp.LoadBitmap(IDB_BITMAP20);
+					bmp.LoadBitmap(pDoc->GetType());
 					pOldBmp = memDC.SelectObject(&bmp);
 					pDC->BitBlt(
 						pDoc->m_bmCell.cx*(m+1), 
@@ -124,9 +132,6 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		pDoc->ResizeWindow();
 
 		pDC->TextOutW(100, 10, pDoc->GetName());
-		
-		CString str = pDoc->OnReadScoreFile();
-		pDC->TextOutW(300, 10, str);
 	}
 
 
@@ -238,7 +243,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 			CBitmap bmp;
 
 			memDC.CreateCompatibleDC(pDC);
-			bmp.LoadBitmapW(IDB_BITMAP20 + pDoc->m_nBmpSecondID);
+			bmp.LoadBitmapW(pDoc->GetType() + pDoc->m_nBmpSecondID);
 
 			CBitmap* pOldBmp = memDC.SelectObject(&bmp);
 			pDC->BitBlt(
@@ -264,24 +269,53 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	}
 
 	void CGameView::OnSuccess(void){
-
-		OnTimerStop();
 		CGameDoc* pDoc = GetDocument();
-		CString str;
-		str.Format(_T("걸린시간은 %d:%d:%d:%d입니다.\n게임오버! 다시 시작하시겠습니까?"), 
-			pDoc->GetHour(), pDoc->GetMinute(), pDoc->GetSecond(), pDoc->GetTimeset());
-		pDoc->OnWriteScoreFile();
-
-		int res = AfxMessageBox(str, MB_YESNO);
-		if(res == IDYES){
-			pDoc->InitializeGame();
-			Invalidate();
+		
+		if(pDoc->GetMode() == PRACTICE){
+			OnTimerStop();
+			CString str;
+			str.Format(_T("걸린시간은 %d:%d:%d:%d입니다.\n게임끝! 다시 시작하시겠습니까?"), 
+				pDoc->GetHour(), pDoc->GetMinute(), pDoc->GetSecond(), pDoc->GetTimeset());
+		
+			int res = AfxMessageBox(str, MB_YESNO);
+			if(res == IDYES){
+				pDoc->InitializeGame();
+				Invalidate();
 			
-			OnTimerReset();
-			OnTimerStart();
+				OnTimerReset();
+				OnTimerStart();
+			}
+		}else{
+			OnTimerStop();
+
+			if(pDoc->m_nCol < 6){
+				pDoc->m_nCol++;
+				pDoc->m_nRow++;
+				pDoc->InitializeGame();
+				Invalidate();
+
+				OnTimerReset();
+				OnTimerStart();
+			}else{
+				CString str;
+				str.Format(_T("걸린시간은 %d:%d:%d:%d입니다.\n게임끝! 다시 시작하시겠습니까?"), 
+					pDoc->GetHour(), pDoc->GetMinute(), pDoc->GetSecond(), pDoc->GetTimeset());
+
+				int res = AfxMessageBox(str, MB_YESNO);
+				pDoc->OnWriteScoreFile();
+
+				if(res == IDYES){
+					pDoc->m_nCol = 3;
+					pDoc->m_nRow = 2;
+					pDoc->InitializeGame();
+					Invalidate();
+
+					OnTimerReset();
+					OnTimerStart();
+				}
+			}
 		}
 	}
-
 
 	void CGameView::OnTimerStart(void){
 		before = clock();
@@ -294,12 +328,6 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 	void CGameView::OnTimerReset(void){
 		isStatus = READY;
-
-		CGameDoc *pDoc = GetDocument();
-		pDoc->SetHour(0);
-		pDoc->SetMinute(0);
-		pDoc->SetSecond(0);
-		pDoc->SetTimeset(0);
 	}
 
 	int CGameView::OnCreate(LPCREATESTRUCT lpCreateStruct)
@@ -322,6 +350,12 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		}
 
 		pDoc->SetName(dlg.m_strName);
+		pDoc->SetMode(dlg.m_nMode);
+		if(dlg.m_nMode == RANKING){
+			pDoc->m_nCol = 3;
+			pDoc->m_nRow = 2;
+		}
+
 	}
 
 	void CGameView::OnTimer(UINT_PTR nIDEvent){
@@ -345,13 +379,13 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		double time = ((double) clock()-before) / CLOCKS_PER_SEC;
 		
 
-		if(time < 2){
+		if(time < 1){
 			m_strIntro = _T("Ready");
-		}else if(time < 4){
+		}else if(time < 2){
 			m_strIntro = _T("3               ");
-		}else if(time < 5){
+		}else if(time < 3){
 			m_strIntro = _T("2");
-		}else if(time < 6){
+		}else if(time < 4){
 			m_strIntro = _T("1");
 		}else{
 			isStatus = START;
@@ -402,11 +436,37 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		OnTimerReset();
 		OnTimerStart();
 	}
+	
+	void CGameView::OnStaticsRanking()
+	{
+		// Dialog 가 켜지면 Game Stop
+		OnTimerStop();	
+		CStaticDlg dlg;
+		dlg.DoModal();
+		
+		// Dialog가 꺼지면 Game 다시 시작
+		Invalidate();
+		OnTimerReset();
+		OnTimerStart();
+	}
 
 	// Grade 난이도 선택 Menu Event
+	void CGameView::OnModeRanking(){
+		CGameDoc *pDoc = GetDocument();
+		pDoc->SetMode(RANKING);
+		pDoc->UpdateGrade();
+
+		Invalidate();
+		
+		OnTimerStop();
+		OnTimerReset();
+		OnTimerStart();
+	}
+
 	void CGameView::OnGradeTop(){
 		CGameDoc *pDoc = GetDocument();
 
+		pDoc->SetMode(PRACTICE);
 		pDoc->SetGrade(TOP);
 		pDoc->UpdateGrade();
 
@@ -420,6 +480,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	void CGameView::OnGradeMiddel(){
 		CGameDoc *pDoc = GetDocument();
 
+		pDoc->SetMode(PRACTICE);
 		pDoc->SetGrade(MIDDLE);
 		pDoc->UpdateGrade();
 
@@ -433,6 +494,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	void CGameView::OnGradeLow(){
 		CGameDoc *pDoc = GetDocument();
 
+		pDoc->SetMode(PRACTICE);
 		pDoc->SetGrade(LOW);
 		pDoc->UpdateGrade();
 
@@ -444,22 +506,74 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	}
 
 	// Grade 난이도 선택 Update 
+	void CGameView::OnUpdateModeRanking(CCmdUI *pCmdUI){
+		CGameDoc *pDoc = GetDocument();
+		pCmdUI->SetCheck(pDoc->GetMode() == RANKING);
+	}
+
 	void CGameView::OnUpdateGradeTop(CCmdUI *pCmdUI){
 		CGameDoc *pDoc = GetDocument();
-		pCmdUI->SetCheck(pDoc->GetGrade() == TOP);
+		if(pDoc->GetMode() == PRACTICE)
+			pCmdUI->SetCheck(pDoc->GetGrade() == TOP);
 	}
 
 	void CGameView::OnUpdateGradeMiddel(CCmdUI *pCmdUI){
 		CGameDoc *pDoc = GetDocument();
-		pCmdUI->SetCheck(pDoc->GetGrade() == MIDDLE);	
+		if(pDoc->GetMode() == PRACTICE)
+			pCmdUI->SetCheck(pDoc->GetGrade() == MIDDLE);	
 	}
 
 	void CGameView::OnUpdateGradeLow(CCmdUI *pCmdUI){
 		CGameDoc *pDoc = GetDocument();
-		pCmdUI->SetCheck(pDoc->GetGrade() == LOW);
+		if(pDoc->GetMode() == PRACTICE)
+			pCmdUI->SetCheck(pDoc->GetGrade() == LOW);
 	}
 
+	// 모양변경
+	void CGameView::OnTypeDooly(){
+		CGameDoc *pDoc = GetDocument();
+		pDoc->SetType(DOOLY);
+		
+		Invalidate();
+		
+		OnTimerStop();
+		OnTimerReset();
+		OnTimerStart();
+	}
+	
+	void CGameView::OnTypePocketmon(){
+		CGameDoc *pDoc = GetDocument();
+		pDoc->SetType(POCKETMON);
 
+		Invalidate();
+		
+		OnTimerStop();
+		OnTimerReset();
+		OnTimerStart();
+	}
 
+	void CGameView::OnTypeOnepiece(){
+		CGameDoc *pDoc = GetDocument();
+		pDoc->SetType(ONEPIECE);
 
+		Invalidate();
+		
+		OnTimerStop();
+		OnTimerReset();
+		OnTimerStart();
+	}
 
+	void CGameView::OnUpdateTypeDooly(CCmdUI *pCmdUI){
+		CGameDoc *pDoc = GetDocument();
+		pCmdUI->SetCheck(pDoc->GetType() == DOOLY);
+	}
+
+	void CGameView::OnUpdateTypePocketmon(CCmdUI *pCmdUI){
+		CGameDoc *pDoc = GetDocument();
+		pCmdUI->SetCheck(pDoc->GetType() == POCKETMON);
+	}
+
+	void CGameView::OnUpdateTypeOnepiece(CCmdUI *pCmdUI){
+		CGameDoc *pDoc = GetDocument();
+		pCmdUI->SetCheck(pDoc->GetType() == ONEPIECE);
+	}

@@ -45,6 +45,9 @@
     <ClInclude Include="Splash.h">
       <Filter>헤더 파일</Filter>
     </ClInclude>
+    <ClInclude Include="StaticDlg.h">
+      <Filter>헤더 파일</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Game.cpp">
@@ -68,6 +71,9 @@
     <ClCompile Include="Splash.cpp">
       <Filter>소스 파일</Filter>
     </ClCompile>
+    <ClCompile Include="StaticDlg.cpp">
+      <Filter>소스 파일</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ResourceCompile Include="Game.rc">
@@ -76,6 +82,9 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="res\Game.rc2">
+      <Filter>리소스 파일</Filter>
+    </None>
+    <None Include="res\cursor1.cur">
       <Filter>리소스 파일</Filter>
     </None>
   </ItemGroup>
@@ -156,6 +165,180 @@
       <Filter>리소스 파일</Filter>
     </Image>
     <Image Include="..\..\Image\Loading.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\00.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\01.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\02.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\03.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\04.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\05.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\06.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\07.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\08.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\09.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\10.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\11.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\12.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\13.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\14.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\15.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\16.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\17.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\18.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\Loading.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_00.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_01.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_02.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_03.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_04.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_05.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_06.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_07.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_08.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_09.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_10.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_11.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_12.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_13.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_14.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_15.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_16.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_17.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\PocketMon_18.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece00.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece01.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece02.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece03.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece04.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece05.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece06.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece07.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece08.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece09.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece10.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece11.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece12.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece13.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece14.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece15.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece16.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece17.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
+    <Image Include="res\OnePiece18.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
   </ItemGroup>

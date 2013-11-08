@@ -1,4 +1,5 @@
 #pragma once
+#include "afxwin.h"
 
 
 // CWelcomeDlg 대화 상자입니다.
@@ -20,5 +21,11 @@ protected:
 	DECLARE_MESSAGE_MAP()
 public:
 	int m_nGrade;
+	int m_nMode;
 	CString m_strName;
+	CButton m_ctrRadioTop;
+	CButton m_ctrRadioMiddle;
+	CButton m_ctrRadioLow;
+	afx_msg void OnBnClickedRadioModeRank();
+	afx_msg void OnBnClickedRadioModePractice();
 };

@@ -34,8 +34,10 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 		m_bmCell = CSize(79, 81);
 		m_nRow = 5;
 		m_nCol = 6;
-		m_nGrade = TOP; 
+		m_nMode = PRACTICE;
+		m_nGrade = TOP;
 		m_bRandom = true;
+		m_nType = POCKETMON;
 
 		for(int n = 0; n < m_nRow; n++)
 			for(int m = 0; m < m_nCol; m++)
@@ -150,26 +152,32 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 
 	// CGameDoc 명령
 	void CGameDoc::UpdateGrade(void){
-		switch (m_nGrade)
-		{
-		case LOW:
-			m_nRow = 3;
-			m_nCol = 4;
-			break;	
-		case MIDDLE:
-			m_nRow = 4;
-			m_nCol = 5;
-			break;
-		case TOP:
-			m_nRow = 5;
-			m_nCol = 6;
-			break;
+		if(m_nMode == PRACTICE){
+			switch (m_nGrade)
+			{
+			case LOW:
+				m_nRow = 3;
+				m_nCol = 4;
+				break;	
+			case MIDDLE:
+				m_nRow = 4;
+				m_nCol = 5;
+				break;
+			case TOP:
+				m_nRow = 5;
+				m_nCol = 6;
+				break;
+			}
+		}else{
+			m_nRow = 2;
+			m_nCol = 3;
 		}
 
 		InitializeGame();
 	}
 
 	void CGameDoc::InitializeGame(void){
+
 		m_bRandom = true;
 		for(int n=0; n<m_nRow; n++)
 			for(int m=0; m<m_nCol; m++)
@@ -178,7 +186,9 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 		m_nBmpFirstID = m_nBmpSecondID = 0;
 		m_bMouse = false;
 		
-		m_nH = m_nM = m_nS = m_nTimeSet = 0;
+		if(m_nMode == PRACTICE || (m_nMode == RANKING && m_nCol == 3)){
+			m_nH = m_nM = m_nS = m_nTimeSet = 0;
+		}
 	}
 
 	void CGameDoc::ResizeWindow(void)
@@ -237,48 +247,37 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 			}
 		}
 	}
-
-
-	CString CGameDoc::OnReadScoreFile(void){
-		CFile file;
-		CFileException e;
-
-		if(!file.Open(_T("score"), CFile::modeRead | CFile::shareDenyNone, &e)){
-			e.ReportError();
-			return NULL;
-		}
-
-		CArchive ar(&file, CArchive::load);
-
-		ar.Close();
-		file.Close();
-
-		return NULL;
-	}
 	
 	void CGameDoc::OnWriteScoreFile(void){
 
-		CFile file; 
+		CStdioFile file; 
 		CFileException e;
-		// Open file as create & write mode 
-		if(!(file.Open(_T("score"), CFile::modeCreate | CFile::modeReadWrite | CFile::shareDenyNone, &e))) { 
-			e.ReportError();
-			return; 
-		} 
-		file.SeekToEnd();
-		CArchive ar(&file, CArchive::store);	// Open file to write 
-		
-		CString time;
-		time.Format(_T("%d:%d:%d:%d"), m_nH, m_nM, m_nS, m_nTimeSet);
-		DWORD wd = 0xfeff;
-		ar.Write(&wd, sizeof(DWORD));
-		ar.WriteString(m_strName);
-		ar.WriteString(_T("\t"));
-		ar.WriteString(time);
-		ar.WriteString(_T("\n"));
+		CFileStatus status;
+		TCHAR* pszFileName = _T("score");
 
-		ar.Close();
-		file.Close(); 
+		if(CFile::GetStatus(pszFileName, status)){//파일이 존재하는 경우 읽어오기만함
+			if(!(file.Open(pszFileName, CFile::modeReadWrite | CFile::shareDenyNone, &e))) { 
+				TRACE( _T("Can't open file %s, error = %u\n"), pszFileName, e.m_cause );
+				return;
+			} 
+		}else{//파일이 존재하지 않는다면 생성한다
+			if(!(file.Open(pszFileName, CFile::modeCreate | CFile::modeReadWrite | CFile::shareDenyNone, &e))) { 
+				TRACE( _T("Can't open file %s, error = %u\n"), pszFileName, e.m_cause );
+				return;
+			} 
+		}
+
+		file.SeekToEnd(); // 라인 끝으로 이동한다.
+
+		CString time;
+		time.Format(_T("%d:%d:%d:%d"),  m_nH, m_nM, m_nS, m_nTimeSet);
+
+		file.WriteString(m_strName);
+		file.WriteString(_T("\t"));
+		file.WriteString(time);
+		file.WriteString(_T("\n"));
+
+		file.Close();
 	}
 
 	// ~ Getter Setter
@@ -296,6 +295,22 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 	
 	void CGameDoc::SetName(CString name){
 		m_strName = name;
+	}
+
+	void CGameDoc::SetMode(int mode){
+		m_nMode = mode;
+	}
+	
+	int CGameDoc::GetMode(){
+		return m_nMode;
+	}
+
+	int CGameDoc::GetType(){
+		return m_nType;
+	}
+	
+	void CGameDoc::SetType(int type){
+		m_nType = type;
 	}
 
 	bool CGameDoc::GetRandom(){

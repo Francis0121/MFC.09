@@ -11,6 +11,17 @@ enum GRADE{
 	LOW
 };
 
+enum GAME_MODE{
+	PRACTICE,
+	RANKING
+};
+
+enum TYPE{
+	DOOLY=IDB_BITMAP1,
+	POCKETMON=IDB_BITMAP21,
+	ONEPIECE=IDB_BITMAP40
+};
+
 class CGameDoc : public CDocument
 {
 protected: // serialization에서만 만들어집니다.
@@ -38,9 +49,11 @@ public:
 	bool m_bMouse; //true이면 첫번째 마우스 버튼이 눌린 것이고 false이면 두번쨰 마우스 버튼이 눌린 것임
 
 	int m_nGrade; //난이도 변수
+	int m_nMode;
 	int m_nH, m_nM, m_nS, m_nTimeSet; // 시간
+	int m_nType;
 
-	CString m_strName;
+	CString m_strName; // 사용자 명
 
 // 작업입니다.
 public:
@@ -49,18 +62,21 @@ public:
 	void UpdateGrade(void);
 	void InitializeGame(void);
 	
-	CString OnReadScoreFile(void);
 	void OnWriteScoreFile(void);
 
 	//Getter,Setter	
 	bool GetRandom();
 	void SetRandom(bool random);
+	int GetType();
+	void SetType(int type);
 
 	//Dlg Variable
 	void SetGrade(int grade);
 	int GetGrade();
-	CString GetName(void);
 	void SetName(CString name);
+	CString GetName(void);
+	void SetMode(int mode);
+	int GetMode();
 
 	//Time Getter, Setter
 	int GetHour(void);
