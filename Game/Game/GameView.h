@@ -4,6 +4,11 @@
 
 #pragma once
 
+enum STATUS{
+	READY,
+	START,
+	END
+};
 
 class CGameView : public CView
 {
@@ -19,6 +24,11 @@ public:
 	UINT m_nColTempIndex;
 	//맞춘 그림의 개수를 세는 변수 선언
 	int nMatchCount;
+	int isStatus;
+	clock_t before;
+
+	// 옮길 변수
+	CString m_strIntro;
 
 // 작업입니다.
 public:
@@ -28,6 +38,9 @@ public:
 	void OnTimerStart(void);
 	void OnTimerStop(void);
 	void OnTimerReset(void);
+
+	void IntroReady(void);
+	void StopWatch(void);
 // 재정의입니다.
 public:
 	virtual void OnDraw(CDC* pDC);  // 이 뷰를 그리기 위해 재정의되었습니다.
@@ -60,6 +73,7 @@ public:
 	afx_msg void OnUpdateGradeMiddel(CCmdUI *pCmdUI);
 	afx_msg void OnUpdateGradeLow(CCmdUI *pCmdUI);
 	afx_msg void OnTimer(UINT_PTR nIDEvent);
+	afx_msg void OnNewGame();
 };
 
 #ifndef _DEBUG  // GameView.cpp의 디버그 버전

@@ -38,6 +38,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		ON_UPDATE_COMMAND_UI(ID_GRADE_MIDDEL, &CGameView::OnUpdateGradeMiddel)
 		ON_UPDATE_COMMAND_UI(ID_GRADE_LOW, &CGameView::OnUpdateGradeLow)
 		ON_WM_TIMER()
+		ON_COMMAND(ID_NEW_GAME, &CGameView::OnNewGame)
 	END_MESSAGE_MAP()
 
 	// CGameView 생성/소멸
@@ -45,6 +46,9 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	CGameView::CGameView()
 	{
 		nMatchCount = 0;
+		isStatus = READY;
+		before = clock();
+		m_strIntro= _T("");
 	}
 
 	CGameView::~CGameView()
@@ -88,7 +92,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		{
 			for(int m = 0; m < pDoc->m_nCol ; m++){
 
-				if(pDoc->m_bShow[n][m] == true){
+				if(pDoc->m_bShow[n][m] == true || isStatus == READY){
 
 					pDoc->m_bmp[n][m].LoadBitmap(IDB_BITMAP20 + pDoc->m_nRnd[nCount]);
 					pOldBmp = memDC.SelectObject(&pDoc->m_bmp[n][m]);
@@ -103,7 +107,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 				nCount++;
 
-				if(pDoc->m_bShow[n][m] == false){
+				if(pDoc->m_bShow[n][m] == false && isStatus != READY){
 					CBitmap bmp;
 					bmp.LoadBitmap(IDB_BITMAP20);
 					pOldBmp = memDC.SelectObject(&bmp);
@@ -171,6 +175,9 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 	void CGameView::OnLButtonDown(UINT nFlags, CPoint point)
 	{
+		if(isStatus == READY)
+			return;
+
 		CGameDoc* pDoc = GetDocument();
 
 		//현재 마우스가 가지고 있는 인덱스
@@ -204,12 +211,9 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 			m_nRowTempIndex = pDoc->m_nRowIndex;
 			m_nColTempIndex = pDoc->m_nColIndex;
-
 		}else{
 			pDoc->m_bMouse = false;
-			pDoc->m_nBmpSecondID = 
-				pDoc->m_nBmpID[pDoc->m_nRowIndex][pDoc->m_nColIndex];
-
+			pDoc->m_nBmpSecondID = pDoc->m_nBmpID[pDoc->m_nRowIndex][pDoc->m_nColIndex];
 		}
 		OnMatching();
 		CView::OnLButtonDown(nFlags, point);
@@ -249,7 +253,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 			pDoc->m_bShow[m_nRowTempIndex][m_nColTempIndex] = false;
 			pDoc->m_bShow[pDoc->m_nRowIndex][pDoc->m_nColIndex] = false;
 			pDoc->m_nBmpFirstID = pDoc->m_nBmpSecondID = 0;
-			m_nRowTempIndex = m_nColTempIndex =0;
+			m_nRowTempIndex = m_nColTempIndex = 0;
 		}
 
 		Invalidate();
@@ -280,6 +284,7 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 
 	void CGameView::OnTimerStart(void){
+		before = clock();
 		SetTimer(100, 100, NULL);
 	}
 
@@ -288,6 +293,8 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	}
 
 	void CGameView::OnTimerReset(void){
+		isStatus = READY;
+
 		CGameDoc *pDoc = GetDocument();
 		pDoc->SetHour(0);
 		pDoc->SetMinute(0);
@@ -319,6 +326,44 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 	void CGameView::OnTimer(UINT_PTR nIDEvent){
 
+		switch (isStatus)
+		{
+		case READY:
+			IntroReady();
+			break;
+		case START:
+			StopWatch();
+			break;
+		case END:
+			break;
+		}
+
+		CView::OnTimer(nIDEvent);
+	}
+	
+	void CGameView::IntroReady(void){
+		double time = ((double) clock()-before) / CLOCKS_PER_SEC;
+		
+
+		if(time < 2){
+			m_strIntro = _T("Ready");
+		}else if(time < 4){
+			m_strIntro = _T("3               ");
+		}else if(time < 5){
+			m_strIntro = _T("2");
+		}else if(time < 6){
+			m_strIntro = _T("1");
+		}else{
+			isStatus = START;
+			m_strIntro = _T("    ");
+			Invalidate();
+		}		
+		CClientDC dc(this);
+		dc.TextOutW(100, 30, m_strIntro);
+	}
+	
+	void CGameView::StopWatch(void){
+		
 		CGameDoc *pDoc = GetDocument();
 		CString str;
 		int hour = pDoc->GetHour();
@@ -345,8 +390,17 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 
 		CClientDC dc(this);
 		dc.TextOutW(10, 10, str);
+	}
 
-		CView::OnTimer(nIDEvent);
+	// ~ Menu Function
+	void CGameView::OnNewGame(){
+		CGameDoc *pDoc = GetDocument();
+		pDoc->InitializeGame();
+		Invalidate();
+		
+		OnTimerStop();
+		OnTimerReset();
+		OnTimerStart();
 	}
 
 	// Grade 난이도 선택 Menu Event
@@ -404,5 +458,8 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		CGameDoc *pDoc = GetDocument();
 		pCmdUI->SetCheck(pDoc->GetGrade() == LOW);
 	}
+
+
+
 
 
