@@ -341,5 +341,8 @@
     <Image Include="res\OnePiece18.bmp">
       <Filter>리소스 파일</Filter>
     </Image>
+    <Image Include="res\bitmap59.bmp">
+      <Filter>리소스 파일</Filter>
+    </Image>
   </ItemGroup>
 </Project>

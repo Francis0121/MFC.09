@@ -429,6 +429,10 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 	// ~ Menu Function
 	void CGameView::OnNewGame(){
 		CGameDoc *pDoc = GetDocument();
+		if(pDoc->GetMode() == RANKING){
+			pDoc->m_nRow = 2;
+			pDoc->m_nCol = 3;
+		}
 		pDoc->InitializeGame();
 		Invalidate();
 		
@@ -445,6 +449,13 @@ IMPLEMENT_DYNCREATE(CGameView, CView)
 		dlg.DoModal();
 		
 		// Dialog가 꺼지면 Game 다시 시작
+		CGameDoc *pDoc = GetDocument();
+		if(pDoc->GetMode() == RANKING){
+			pDoc->m_nRow = 2;
+			pDoc->m_nCol = 3;
+		}
+		pDoc->InitializeGame();
+
 		Invalidate();
 		OnTimerReset();
 		OnTimerStart();

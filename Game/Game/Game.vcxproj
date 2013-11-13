@@ -175,6 +175,7 @@
     <Image Include="res\18.bmp" />
     <Image Include="res\bitmap1.bmp" />
     <Image Include="res\bitmap20.bmp" />
+    <Image Include="res\bitmap59.bmp" />
     <Image Include="res\Game.ico" />
     <Image Include="res\GameDoc.ico" />
     <Image Include="res\Loading.bmp" />

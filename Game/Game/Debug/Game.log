@@ -1,19 +1,15 @@
-﻿빌드 시작: 2013-11-08 오후 4:44:36
+﻿빌드 시작: 2013-11-12 오후 2:25:17
      1>2 노드의 "C:\Users\Francis\git\MFC.09\Game\Game\Game.vcxproj" 프로젝트(Build 대상)입니다.
      1>ClCompile:
          C:\Program Files (x86)\Microsoft Visual Studio 11.0\VC\bin\CL.exe /c /ZI /nologo /W3 /WX- /sdl /Od /Oy- /D WIN32 /D _WINDOWS /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /Gm /EHsc /RTC1 /MDd /GS /fp:precise /Zc:wchar_t /Zc:forScope /Yu"stdafx.h" /Fp"Debug\Game.pch" /Fo"Debug\\" /Fd"Debug\vc110.pdb" /Gd /TP /analyze- /errorReport:prompt Game.cpp GameDoc.cpp GameView.cpp MainFrm.cpp Splash.cpp StaticDlg.cpp WelcomeDlg.cpp
-         GameView.cpp
-         코드를 생성하고 있습니다...
-     1>c:\users\francis\git\mfc.09\game\game\gameview.cpp(359): warning C4715: 'CGameView::OnCreate' : 모든 제어 경로에서 값을 반환하지는 않습니다.
-         컴파일하고 있습니다...
-         GameDoc.cpp
-         Game.cpp
-         코드를 생성하고 있습니다...
          건너뛰고 있습니다... (관련된 변경 내용 없음)
          WelcomeDlg.cpp
          StaticDlg.cpp
          Splash.cpp
          MainFrm.cpp
+         GameView.cpp
+         GameDoc.cpp
+         Game.cpp
        ResourceCompile:
          C:\Program Files (x86)\Windows Kits\8.0\bin\x86\rc.exe /D _DEBUG /D _UNICODE /D UNICODE /D _AFXDLL /l"0x0412" /IDebug\ /nologo /fo"Debug\Game.res" Game.rc 
        Link:
@@ -31,4 +27,4 @@
 
 빌드했습니다.
 
-경과 시간: 00:00:03.82
+경과 시간: 00:00:00.41

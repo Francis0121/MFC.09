@@ -82,7 +82,7 @@ BEGIN
     POPUP "게임(&G)"
     BEGIN
         MENUITEM "새 게임(&N)\tF2",                ID_NEW_GAME
-        POPUP "게임 모드"
+        POPUP "게임모드"
         BEGIN
             MENUITEM "랭킹모드(&R)\tF3",                ID_MODE_RANKING
             POPUP "연습모드(&P)"
@@ -105,7 +105,7 @@ BEGIN
     POPUP "도움말(&H)"
     BEGIN
         MENUITEM "상태 표시줄(&S)",                  ID_VIEW_STATUS_BAR
-        MENUITEM "Game 정보(&A)...",              ID_APP_ABOUT
+        MENUITEM "Find the picture 정보(&A)...",  ID_APP_ABOUT
     END
 END
 
@@ -140,11 +140,11 @@ END
 
 IDD_ABOUTBOX DIALOGEX 0, 0, 170, 62
 STYLE DS_SETFONT | DS_MODALFRAME | DS_FIXEDSYS | WS_POPUP | WS_CAPTION | WS_SYSMENU
-CAPTION "Game 정보"
+CAPTION "Find the picture Info"
 FONT 9, "MS Shell Dlg", 0, 0, 0x1
 BEGIN
     ICON            IDR_MAINFRAME,IDC_STATIC,14,14,20,20
-    LTEXT           "Game, 버전 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
+    LTEXT           "Find the picture, v 1.0",IDC_STATIC,42,14,114,8,SS_NOPREFIX
     LTEXT           "Copyright (C) KMU CS 2013",IDC_STATIC,42,26,114,8
     DEFPUSHBUTTON   "확인",IDOK,113,41,50,14,WS_GROUP
 END
@@ -203,15 +203,15 @@ VS_VERSION_INFO VERSIONINFO
 BEGIN
     BLOCK "StringFileInfo"
     BEGIN
-        BLOCK "041204B0"
+        BLOCK "041204b0"
         BEGIN
-            VALUE "CompanyName", "TODO: <회사 이름>"
-            VALUE "FileDescription", "Game"
+            VALUE "CompanyName", "09"
+            VALUE "FileDescription", "Find the picture"
             VALUE "FileVersion", "1.0.0.1"
-            VALUE "InternalName", "Game.exe"
-            VALUE "LegalCopyright", "TODO: (c) <회사 이름>.  All rights reserved."
-            VALUE "OriginalFilename", "Game.exe"
-            VALUE "ProductName", "TODO: <제품 이름>"
+            VALUE "InternalName", "Find the picture.exe"
+            VALUE "LegalCopyright", "(c) KMU CS 09.  All rights reserved."
+            VALUE "OriginalFilename", "Find the picture.exe"
+            VALUE "ProductName", "Find the picture"
             VALUE "ProductVersion", "1.0.0.1"
         END
     END
@@ -346,7 +346,7 @@ END
 
 STRINGTABLE
 BEGIN
-    AFX_IDS_APP_TITLE       "Game"
+    AFX_IDS_APP_TITLE       "Find the picture"
     AFX_IDS_IDLEMESSAGE     "준비"
 END
 
