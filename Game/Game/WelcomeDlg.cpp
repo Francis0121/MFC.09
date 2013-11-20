@@ -45,6 +45,7 @@ void CWelcomeDlg::DoDataExchange(CDataExchange* pDX)
 BEGIN_MESSAGE_MAP(CWelcomeDlg, CDialogEx)
 	ON_BN_CLICKED(IDC_RADIO_MODE_RANK, &CWelcomeDlg::OnBnClickedRadioModeRank)
 	ON_BN_CLICKED(IDC_RADIO_MODE_PRACTICE, &CWelcomeDlg::OnBnClickedRadioModePractice)
+	ON_BN_CLICKED(IDC_RADIO_MODE_PVP, &CWelcomeDlg::OnBnClickedRadioModePvp)
 END_MESSAGE_MAP()
 
 
@@ -61,4 +62,12 @@ void CWelcomeDlg::OnBnClickedRadioModePractice()
 	m_ctrRadioTop.EnableWindow(TRUE);
 	m_ctrRadioMiddle.EnableWindow(TRUE);
 	m_ctrRadioLow.EnableWindow(TRUE);
+}
+
+
+void CWelcomeDlg::OnBnClickedRadioModePvp()
+{
+	m_ctrRadioTop.EnableWindow(FALSE);
+	m_ctrRadioMiddle.EnableWindow(FALSE);
+	m_ctrRadioLow.EnableWindow(FALSE);
 }

@@ -5,21 +5,28 @@
 
 #pragma once
 
-enum GRADE{
+enum enGameGrade{
 	TOP,
 	MIDDLE,
 	LOW
 };
 
-enum GAME_MODE{
+enum enGameMode{
 	PRACTICE,
-	RANKING
+	RANKING,
+	PVP
 };
 
-enum TYPE{
+enum enGameImageType{
 	DOOLY=IDB_BITMAP1,
 	POCKETMON=IDB_BITMAP21,
 	ONEPIECE=IDB_BITMAP40
+};
+
+enum enGameStatus{
+	READY,
+	START,
+	END
 };
 
 class CGameDoc : public CDocument
@@ -28,7 +35,6 @@ protected: // serialization에서만 만들어집니다.
 	CGameDoc();
 	DECLARE_DYNCREATE(CGameDoc)
 
-// 특성입니다.
 public:
 	CBitmap m_bmp[6][6]; //Bitmap 저장 최대 6 x 6 인 상태
 	CSize m_bmCell; // 셀에 들어갈 그림 하나의 크기
@@ -54,31 +60,29 @@ public:
 	int m_nType;
 
 	CString m_strName; // 사용자 명
-
-// 작업입니다.
+	
 public:
 	void ResizeWindow(void);
 	void OnRandom(void);
 	void UpdateGrade(void);
 	void InitializeGame(void);
 	
-	void OnWriteScoreFile(void);
+	void OnWriteScoreFile(CString pszFileName, int mode);
 
-	//Getter,Setter	
+	// ~ Common Getter Setter
 	bool GetRandom();
 	void SetRandom(bool random);
 	int GetType();
 	void SetType(int type);
-
-	//Dlg Variable
+	int GetRandomImage();
+	// ~ Dialog  Getter Setter
 	void SetGrade(int grade);
 	int GetGrade();
 	void SetName(CString name);
 	CString GetName(void);
 	void SetMode(int mode);
 	int GetMode();
-
-	//Time Getter, Setter
+	// ~ Time Getter, Setter
 	int GetHour(void);
 	void SetHour(int hour);
 	int GetMinute(void);
@@ -104,8 +108,6 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
-
-protected:
 
 // 생성된 메시지 맵 함수
 protected:

@@ -28,4 +28,5 @@ public:
 	CButton m_ctrRadioLow;
 	afx_msg void OnBnClickedRadioModeRank();
 	afx_msg void OnBnClickedRadioModePractice();
+	afx_msg void OnBnClickedRadioModePvp();
 };

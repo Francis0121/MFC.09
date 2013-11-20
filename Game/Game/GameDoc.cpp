@@ -12,12 +12,14 @@
 #include "GameDoc.h"
 #include "GameView.h"
 #include "MainFrm.h"
+#include "Record.h"
 
 #include <propkey.h>
 
 #ifdef _DEBUG
 #define new DEBUG_NEW
 #endif
+
 
 // CGameDoc
 
@@ -29,55 +31,37 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 
 	// CGameDoc 생성/소멸
 
-	CGameDoc::CGameDoc() : m_strName(_T(""))
-	{
+	CGameDoc::CGameDoc(){
+		srand((unsigned int)(time(NULL)));//시간을 Seed로 잡아 똑같은 난수 발생을 방지
+		
+		m_strName = _T("");
 		m_bmCell = CSize(79, 81);
-		m_nRow = 5;
-		m_nCol = 6;
 		m_nMode = PRACTICE;
 		m_nGrade = TOP;
-		m_bRandom = true;
 		m_nType = POCKETMON;
 
-		for(int n = 0; n < m_nRow; n++)
-			for(int m = 0; m < m_nCol; m++)
-				m_bShow[n][m] = false;
-
-		m_nBmpFirstID = m_nBmpSecondID = 0;
-		m_bMouse = false;
-
-		m_nH = m_nM = m_nS = m_nTimeSet = 0;
+		UpdateGrade();
+		InitializeGame();
 	}
 
-	CGameDoc::~CGameDoc()
-	{
+	CGameDoc::~CGameDoc(){
 	}
 
-	BOOL CGameDoc::OnNewDocument()
-	{
+	BOOL CGameDoc::OnNewDocument(){
 		if (!CDocument::OnNewDocument())
 			return FALSE;
-
-		// TODO: 여기에 재초기화 코드를 추가합니다.
-		// SDI 문서는 이 문서를 다시 사용합니다.
 
 		return TRUE;
 	}
 
-
-
-
 	// CGameDoc serialization
 
-	void CGameDoc::Serialize(CArchive& ar)
-	{
-		if (ar.IsStoring())
-		{
-			// TODO: 여기에 저장 코드를 추가합니다.
+	void CGameDoc::Serialize(CArchive& ar){
+		if (ar.IsStoring()){
+		
 		}
-		else
-		{
-			// TODO: 여기에 로딩 코드를 추가합니다.
+		else{
+
 		}
 	}
 
@@ -150,7 +134,8 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 #endif //_DEBUG
 
 
-	// CGameDoc 명령
+	// ~ CGameDoc Command
+
 	void CGameDoc::UpdateGrade(void){
 		if(m_nMode == PRACTICE){
 			switch (m_nGrade)
@@ -168,16 +153,18 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 				m_nCol = 6;
 				break;
 			}
-		}else{
+		}else if(m_nMode == RANKING){
 			m_nRow = 2;
 			m_nCol = 3;
+		}else{
+			m_nRow = 5;
+			m_nCol = 6;
 		}
 
 		InitializeGame();
 	}
 
 	void CGameDoc::InitializeGame(void){
-
 		m_bRandom = true;
 		for(int n=0; n<m_nRow; n++)
 			for(int m=0; m<m_nCol; m++)
@@ -186,14 +173,11 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 		m_nBmpFirstID = m_nBmpSecondID = 0;
 		m_bMouse = false;
 		
-		if(m_nMode == PRACTICE || (m_nMode == RANKING && m_nCol == 3)){
+		if(m_nMode == PRACTICE || (m_nMode == RANKING && m_nCol == 3))
 			m_nH = m_nM = m_nS = m_nTimeSet = 0;
-		}
 	}
 
-	void CGameDoc::ResizeWindow(void)
-	{
-
+	void CGameDoc::ResizeWindow(void){
 		CMainFrame* pMain = (CMainFrame*)AfxGetMainWnd();
 
 		CREATESTRUCT st;// WB_CREATE 메시지 발생시 윈도 운영체제가 좌표, 메뉴, 인스턴스 핸들클래스 이름 윈도 스타일을 넘겨주는곳
@@ -213,13 +197,11 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
         x = LONG((rcTemp.right - rst.cx) / 2) ;
 		y = LONG((rcTemp.bottom - rst.cy) / 2) ;
 
-		pMain->MoveWindow(x, y, rst.cx, rst.cy);
+		pMain->SetWindowPos(NULL, x, y,rst.cx, rst.cy,SWP_NOMOVE); // 크기 위치 둘중하나 변경 가능
+		//pMain->MoveWindow(x, y, rst.cx, rst.cy, TRUE); 크기 위치 다 변경
 	}
 
 	void CGameDoc::OnRandom(void){
-		//시간을 Seed로 잡아 똑같은 난수 발생을 방지
-		srand((unsigned)time(NULL));
-
 		BOOL bInsert = TRUE;
 		int nGrating = m_nRow * m_nCol;
 
@@ -247,13 +229,14 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 			}
 		}
 	}
-	
-	void CGameDoc::OnWriteScoreFile(void){
+
+	void CGameDoc::OnWriteScoreFile(CString pszFileName, int mode){
 
 		CStdioFile file; 
 		CFileException e;
 		CFileStatus status;
-		TCHAR* pszFileName = _T("score");
+		
+		if(mode != -1) pszFileName.Format(pszFileName+("_%d"), mode);
 
 		if(CFile::GetStatus(pszFileName, status)){//파일이 존재하는 경우 읽어오기만함
 			if(!(file.Open(pszFileName, CFile::modeReadWrite | CFile::shareDenyNone, &e))) { 
@@ -273,14 +256,15 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 		time.Format(_T("%d:%d:%d:%d"),  m_nH, m_nM, m_nS, m_nTimeSet);
 
 		file.WriteString(m_strName);
-		file.WriteString(_T("\t"));
+		file.WriteString(_T(","));
 		file.WriteString(time);
 		file.WriteString(_T("\n"));
 
-		file.Close();
+		file.Close();	
 	}
 
 	// ~ Getter Setter
+
 	int CGameDoc::GetGrade(){
 		return m_nGrade;
 	}
@@ -303,6 +287,19 @@ IMPLEMENT_DYNCREATE(CGameDoc, CDocument)
 	
 	int CGameDoc::GetMode(){
 		return m_nMode;
+	}
+
+	int CGameDoc::GetRandomImage(){
+		int enGameImageType = DOOLY;
+		switch (rand()%3){
+		case 0:
+			enGameImageType = DOOLY;
+		case 1:
+			enGameImageType = POCKETMON;
+		case 2:
+			enGameImageType = ONEPIECE;
+		}
+		return enGameImageType;
 	}
 
 	int CGameDoc::GetType(){

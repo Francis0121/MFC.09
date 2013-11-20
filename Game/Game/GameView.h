@@ -1,14 +1,14 @@
 
 // GameView.h : CGameView 클래스의 인터페이스
 //
+// Dialog
+#include "WelcomeDlg.h"
+#include "StaticDlg.h"
+#include "SocketDlg.h"
+#include "PvpGame.h"
 
 #pragma once
-
-enum STATUS{
-	READY,
-	START,
-	END
-};
+class CSocketDlg;
 
 class CGameView : public CView
 {
@@ -19,6 +19,7 @@ protected: // serialization에서만 만들어집니다.
 // 특성입니다.
 public:
 	CGameDoc* GetDocument() const;
+	CPvpGame* m_pGame;
 	//현재 마우스가 좌표값으로 그림의 위치를 계산하여 저장하고 있는 인덱스
 	UINT m_nRowTempIndex;
 	UINT m_nColTempIndex;
@@ -28,27 +29,26 @@ public:
 	// Game Intro 관련 변수
 	clock_t before;
 	CString m_strIntro;
-
+	
 // 작업입니다.
 public:
+	// Game Process
 	void OnMatching(void);
 	void OnSuccess(void);
-
+	// Local 
 	void OnTimerStart(void);
 	void OnTimerStop(void);
-	void OnTimerReset(void);
-
 	void IntroReady(void);
 	void StopWatch(void);
+	// NetWork
+	void OnNewPvpGame();
+	void PvpMessage(CString you, int youC);
+private:
+	bool IsNetworkGame();
 // 재정의입니다.
 public:
 	virtual void OnDraw(CDC* pDC);  // 이 뷰를 그리기 위해 재정의되었습니다.
 	virtual BOOL PreCreateWindow(CREATESTRUCT& cs);
-protected:
-	virtual BOOL OnPreparePrinting(CPrintInfo* pInfo);
-	virtual void OnBeginPrinting(CDC* pDC, CPrintInfo* pInfo);
-	virtual void OnEndPrinting(CDC* pDC, CPrintInfo* pInfo);
-
 // 구현입니다.
 public:
 	virtual ~CGameView();
@@ -56,9 +56,6 @@ public:
 	virtual void AssertValid() const;
 	virtual void Dump(CDumpContext& dc) const;
 #endif
-
-protected:
-
 // 생성된 메시지 맵 함수
 protected:
 	DECLARE_MESSAGE_MAP()
@@ -82,6 +79,10 @@ public:
 	afx_msg void OnUpdateTypePocketmon(CCmdUI *pCmdUI);
 	afx_msg void OnTypeOnepiece();
 	afx_msg void OnUpdateTypeOnepiece(CCmdUI *pCmdUI);
+	afx_msg void OnModePvp();
+	afx_msg void OnUpdateModePvp(CCmdUI *pCmdUI);
+	afx_msg void OnPvpChat();
+	afx_msg void OnPvpGiveup();
 };
 
 #ifndef _DEBUG  // GameView.cpp의 디버그 버전

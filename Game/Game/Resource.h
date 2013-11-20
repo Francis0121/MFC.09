@@ -67,6 +67,9 @@
 #define IDB_BITMAP56                    492
 #define IDB_BITMAP57                    493
 #define IDB_BITMAP58                    494
+#define IDD_DIALOG_SOCKEt               496
+#define IDD_DIALOG_SOCKET               496
+#define IDD_DIALOG_PVP                  497
 #define IDC_RADIO_GRADE_TOP             1000
 #define IDC_RADIO_GRADE_MIDDLE          1001
 #define IDC_RADIO_GRADE_LOW             1002
@@ -75,6 +78,20 @@
 #define IDC_RADIO_MODE_RANK             1005
 #define IDC_RADIO_MODE_PRACTICE         1006
 #define IDC_STATIC_RANKIN_LIST          1007
+#define IDC_RADIO_MODE_PVP              1007
+#define IDC_STATIC_PRACTICE_LIST        1008
+#define IDC_LIST_MESSAGE                1008
+#define IDC_EDIT_MESSAGE                1009
+#define IDC_BUTTON_SEND                 1010
+#define IDC_BUTTON_EXIT                 1011
+#define IDC_STATIC_NETWORK_STATUS       1012
+#define IDC_LIST_GRADE                  1013
+#define IDC_EDIT_IPADDR                 1015
+#define IDC_BUTTON_CONNECT              1018
+#define IDC_BUTTON_START                1019
+#define IDC_LIST_CHAT_LIST              1020
+#define IDC_EDIT_CHAT_MSG               1021
+#define IDC_BUTTON_CHAT_SEND            1022
 #define ID_32771                        32771
 #define ID_32772                        32772
 #define ID_32773                        32773
@@ -101,14 +118,20 @@
 #define ID_TYPE_DOOLY                   32801
 #define ID_TYPE_POCKETMON               32802
 #define ID_TYPE_ONEPIECE                32803
+#define ID_32804                        32804
+#define ID_MODE_PVP                     32805
+#define ID_                             32806
+#define ID_PVP_CHAT                     32807
+#define ID_32808                        32808
+#define ID_PVP_GIVEUP                   32809
 
 // Next default values for new objects
 // 
 #ifdef APSTUDIO_INVOKED
 #ifndef APSTUDIO_READONLY_SYMBOLS
-#define _APS_NEXT_RESOURCE_VALUE        496
-#define _APS_NEXT_COMMAND_VALUE         32804
-#define _APS_NEXT_CONTROL_VALUE         1008
+#define _APS_NEXT_RESOURCE_VALUE        498
+#define _APS_NEXT_COMMAND_VALUE         32810
+#define _APS_NEXT_CONTROL_VALUE         1023
 #define _APS_NEXT_SYMED_VALUE           310
 #endif
 #endif

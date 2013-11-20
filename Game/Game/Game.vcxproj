@@ -101,23 +101,35 @@
     <Text Include="ReadMe.txt" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Data.h" />
+    <ClInclude Include="DataSocket.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="GameDoc.h" />
     <ClInclude Include="GameView.h" />
     <ClInclude Include="MainFrm.h" />
+    <ClInclude Include="PvpGame.h" />
     <ClInclude Include="Resource.h" />
+    <ClInclude Include="ServerSocket.h" />
+    <ClInclude Include="SocketDlg.h" />
     <ClInclude Include="Splash.h" />
+    <ClInclude Include="Record.h" />
     <ClInclude Include="StaticDlg.h" />
     <ClInclude Include="stdafx.h" />
     <ClInclude Include="targetver.h" />
     <ClInclude Include="WelcomeDlg.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Data.cpp" />
+    <ClCompile Include="DataSocket.cpp" />
     <ClCompile Include="Game.cpp" />
     <ClCompile Include="GameDoc.cpp" />
     <ClCompile Include="GameView.cpp" />
     <ClCompile Include="MainFrm.cpp" />
+    <ClCompile Include="PvpGame.cpp" />
+    <ClCompile Include="ServerSocket.cpp" />
+    <ClCompile Include="SocketDlg.cpp" />
     <ClCompile Include="Splash.cpp" />
+    <ClCompile Include="Record.cpp" />
     <ClCompile Include="StaticDlg.cpp" />
     <ClCompile Include="stdafx.cpp">
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">Create</PrecompiledHeader>

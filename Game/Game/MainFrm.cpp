@@ -67,7 +67,7 @@ BOOL CMainFrame::PreCreateWindow(CREATESTRUCT& cs)
 		return FALSE;
 	// TODO: CREATESTRUCT cs를 수정하여 여기에서
 	//  Window 클래스 또는 스타일을 수정합니다.
-
+	cs.style &= ~FWS_ADDTOTITLE;
 	return TRUE;
 }
 

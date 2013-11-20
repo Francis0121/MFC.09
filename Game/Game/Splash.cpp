@@ -34,16 +34,13 @@ END_MESSAGE_MAP()
 
 // CSplash 메시지 처리기입니다.
 BOOL CSplash::OnInitDialog(){
-	
+
 	CDialog::OnInitDialog();
-
 	SetTimer(0, 2000, NULL);
-
 	return TRUE;
 }
 
-void CSplash::OnTimer(UINT_PTR nIDEvent)
-{
+void CSplash::OnTimer(UINT_PTR nIDEvent){
 	EndDialog(0);
 	CDialogEx::OnTimer(nIDEvent);
 }
