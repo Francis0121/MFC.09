@@ -25,7 +25,6 @@ void CSocketDlg::DoDataExchange(CDataExchange* pDX)
 {
 	CDialogEx::DoDataExchange(pDX);
 	DDX_Control(pDX, IDC_LIST_MESSAGE, m_ctrMesList);
-	DDX_Control(pDX, IDC_EDIT_MESSAGE, m_ctrMes);
 	DDX_Text(pDX, IDC_EDIT_MESSAGE, m_strMes);
 	DDX_Text(pDX, IDC_STATIC_NETWORK_STATUS, m_strNetStatus);
 	DDX_Text(pDX, IDC_EDIT_IPADDR, m_strIpAddr);

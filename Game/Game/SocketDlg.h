@@ -28,7 +28,6 @@ private:
 
 public:
 	CWnd *m_pParent;
-	CEdit m_ctrMes;
 	CListBox m_ctrMesList;
 
 	BOOL m_bIReqGame;
